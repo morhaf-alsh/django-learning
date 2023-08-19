@@ -9,7 +9,7 @@ car_types = (
 
 )
 
-class Cars(models.Model):
+class Car(models.Model):
     
     brand = models.CharField(max_length=50)
     number = models.IntegerField(validators=[])
@@ -18,11 +18,11 @@ class Cars(models.Model):
         choices= car_types,
         default = "light vehicle"
          )
-    time_in = models.TimeField()
-    time_out = models.TimeField()
+    time_in = models.TimeField(auto_now_add=True)
+    time_out = models.TimeField(auto_now=False, auto_now_add=False)
     
     def __str__(self):
-        return self.number
+        return str(self.number)
 
     def time_reserved(self):
         return (self.time_in - self.time_out)/60
