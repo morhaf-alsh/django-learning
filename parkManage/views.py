@@ -8,3 +8,10 @@ def currentList(request):
         'data' : data
     }
     return render(request, 'list.html', context)
+
+def car_info(request,brand):
+    data = Car.objects.filter(brand=brand)
+    context = {
+        'data' : data
+    }
+    return render(request, 'list.html', context)
