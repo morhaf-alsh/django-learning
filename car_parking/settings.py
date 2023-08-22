@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'parkManage.apps.ParkmanageConfig',
     'rest_framework',
+    'storeManage.apps.StoremanageConfig',
 ]
 
 MIDDLEWARE = [
