@@ -1,0 +1,16 @@
+
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in objects %}
+    <!-- Display Objects -->
+    <li>{{ object.headline }}</li>
+    <li>{{ object.brand }}</li>
+    <li><a href=" {% url 'seller' object.seller_id.pk %}">{{ object.seller_id.pk }}</a></li>
+    <li>{{ object.details }}</li>
+   
+    <hr/>
+    <!-- If object_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+</ul>
