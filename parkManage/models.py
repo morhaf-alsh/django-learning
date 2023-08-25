@@ -9,6 +9,8 @@ car_types = (
 
 )
 
+
+
 class Car(models.Model):
     
     brand = models.CharField(max_length=50)
