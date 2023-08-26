@@ -6,9 +6,15 @@ WORKDIR app
 
 COPY . .
 
+RUN python -m pip install --upgrade pip
+
 RUN pip install -r requirements.txt
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN pip install psycopg2-binary
+
+RUN export SECRET_KEY="mzDMzCCh-s5NOFmK1UM-o3r5GN9ho4k1BpFzinzxfwM"
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 EXPOSE 8000
 
