@@ -12,7 +12,7 @@ car_types = (
 
 
 class Car(models.Model):
-    
+    request_no = models.CharField(max_length=50, default='', unique=True)
     brand = models.CharField(max_length=50)
     number = models.IntegerField(validators=[])
     car_type = models.CharField(
@@ -22,6 +22,7 @@ class Car(models.Model):
          )
     time_in = models.TimeField(auto_now_add=True)
     time_out = models.TimeField(auto_now=False, auto_now_add=False)
+    time_reserved = models.DurationField()
     
     def __str__(self):
         return str(self.number)
