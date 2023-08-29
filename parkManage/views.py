@@ -2,19 +2,19 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.shortcuts import render
-from parkManage.models import Car
+from parkManage.models import Current_Car
 from parkManage.serializer import CarSerializer
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 @api_view(['GET'])
 def currentList(request):
-    # data = Car.objects.all().order_by('brand')
+    # data = Current_Car.objects.all().order_by('brand')
     # context = {
     #     'data' : data
     # }
     # return render(request, 'list.html', context)
-    raw_data = Car.objects.all()
+    raw_data = Current_Car.objects.all()
     serializer = CarSerializer(raw_data,many=True)
     return Response(serializer.data)
 
@@ -26,7 +26,7 @@ def car_info(request,id):
     # # }
     # return render(request, 'list.html', context)
     try:
-        raw_data = Car.objects.get(pk=id)
+        raw_data = Current_Car.objects.get(pk=id)
     except ObjectDoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
