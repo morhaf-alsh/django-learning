@@ -2,7 +2,19 @@ from django.db import models
 import random
 import string
 from datetime import datetime
+from django.core.validators import MinValueValidator
+from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
+
+class Owner(models.Model):
+
+    fname = models.CharField(max_length=70)
+    lname = models.CharField(max_length=70)
+    mobile_no = PhoneNumberField(blank=True)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.fname
 
 def generate_unique_code(length, model):
     
@@ -17,8 +29,7 @@ car_types = (
     ("light vehicle","light vehicle"),
     ("meduim vehicle","meduim vehicle"),
     ("heavy vehicle","heavy vehicle")
-
-)
+    )
 
 
 
@@ -26,14 +37,15 @@ class Current_Car(models.Model):
     
     code = models.CharField(max_length=50, default='', unique=True)
     brand = models.CharField(max_length=50)
-    number = models.IntegerField(validators=[])
+    number = models.IntegerField(validators=[MinValueValidator(10)])
     car_type = models.CharField(
         max_length=50,
         choices= car_types,
         null = False
          )
     time_in = models.TimeField(auto_now_add=True)
-    time_out = models.TimeField(auto_now=False, auto_now_add=False)
+    time_out = models.TimeField(auto_now=False, auto_now_add=False, null=False)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE, default=0)
 
     @property
     def duration(self):
@@ -50,5 +62,5 @@ class Current_Car(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return str(self.number)
+        return str(self.time_out)
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'parkManage.apps.ParkmanageConfig',
     'rest_framework',
     'storeManage.apps.StoremanageConfig',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

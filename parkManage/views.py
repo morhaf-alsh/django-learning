@@ -19,7 +19,7 @@ from django.core.exceptions import ObjectDoesNotExist
 #     return Response(serializer.data)
 
 class CarCreate(generics.ListCreateAPIView):
-    queryset = Current_Car.objects.all()
+    queryset = Current_Car.objects.values_list('brand')
     serializer_class = CarSerializer
 
 class CarList(generics.ListAPIView):
