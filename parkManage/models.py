@@ -1,6 +1,7 @@
 from django.db import models
 import random
 import string
+from datetime import datetime
 # Create your models here.
 
 def generate_unique_code(length, model):
@@ -22,6 +23,7 @@ car_types = (
 
 
 class Current_Car(models.Model):
+    
     code = models.CharField(max_length=50, default='', unique=True)
     brand = models.CharField(max_length=50)
     number = models.IntegerField(validators=[])
@@ -32,7 +34,20 @@ class Current_Car(models.Model):
          )
     time_in = models.TimeField(auto_now_add=True)
     time_out = models.TimeField(auto_now=False, auto_now_add=False)
-    time_reserved = models.DurationField()
+
+    @property
+    def duration(self):
+        t1 = datetime.strptime(str(self.time_in), '%H:%M:%S.%f' )
+        t2 = datetime.strptime(str(self.time_out), '%H:%M:%S' )
+        # delta = t2 - t1
+        # return (delta.total_seconds())
+        return t1 - t2
+        print(type(self.time_in))
+
+    def save(self,*args,**kwargs):
+        if not self.code:
+            self.code = generate_unique_code(8,Current_Car)
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return str(self.number)
