@@ -6,5 +6,6 @@ urlpatterns = [
     # # path('new/', views.create),
     # path('create/', views.CarCreate.as_view()),
     # path('list/', views.CarList.as_view()),
-    path('', views.OwnerDetails.as_view())
+    path('', views.OwnerDetails.as_view()),
+    path('test/', views.home)
 ]

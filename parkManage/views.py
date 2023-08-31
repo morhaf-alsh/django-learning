@@ -51,10 +51,8 @@ class OwnerDetails(APIView):
 
 
 
-class CarDetails(APIView):
-    model = Current_Car
-    serializer_class = CarSerializer
-    # def get
+def home(request):
+    return render(request, 'base.html')
 
 
 
