@@ -1,3 +1,2 @@
 **/__pycache__
-./parkManage/static/css
-./parkManage/static/js
+./parkManage/static/*
