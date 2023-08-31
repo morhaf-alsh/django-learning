@@ -45,7 +45,7 @@ class Current_Car(models.Model):
          )
     time_in = models.TimeField(auto_now_add=True)
     time_out = models.TimeField(auto_now=False, auto_now_add=False, null=False)
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE, default=0)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
 
     @property
     def duration(self):

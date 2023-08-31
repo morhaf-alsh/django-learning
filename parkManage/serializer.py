@@ -14,4 +14,11 @@ class CarSerializer(serializers.ModelSerializer):
 
     def get(self, request):
         data = Current_Car.objects.all()
+
+
  
+class OwnerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Owner
+        fields = '__all__'
