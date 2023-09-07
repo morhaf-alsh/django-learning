@@ -3,14 +3,14 @@ import random
 import string
 from datetime import datetime
 from django.core.validators import MinValueValidator
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
 class Owner(models.Model):
 
     fname = models.CharField(max_length=70)
     lname = models.CharField(max_length=70)
-    mobile_no = PhoneNumberField(blank=True)
+    # mobile_no = PhoneNumberField(blank=True)
     email = models.EmailField()
 
     def __str__(self):

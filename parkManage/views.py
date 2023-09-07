@@ -15,13 +15,13 @@ def get_objects(model, method,request, *args):
         case 'GET_ALL':
             return model.objects.all()
         case 'GET':
-            return model.objects.get(pk=request.GET.get(args[0]))
+            return model.objects.get(pk=args[0])
         case 'PUT':
-            return model.objects.get(pk=request.GET.get(args[0]))
+            return model.objects.get(pk=args[0])
         case 'DELETE':
-            return model.objects.get(pk=request.GET.get(args[0]))
+            return model.objects.get(pk=args[0])
     
-class OwnerDetails(APIView):
+class OwnerList(APIView):
     model = Owner
     serializer_class = OwnerSerializer
 
@@ -33,13 +33,9 @@ class OwnerDetails(APIView):
     def post(self, request):
         serializer = OwnerSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response('Saved!!', status=status.HTTP_200_OK)
+            serializer.save()  
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    def delete(self, request):
-        owner = get_objects(Owner,'DELETE',request , 'user_id')
-        owner.delete()
-        return Response('deleted', status=status.HTTP_200_OK)
     def put(self, request):
         owner = get_objects(Owner,'PUT',request , 'user_id')
         serializer = OwnerSerializer(owner, data=request.data)
@@ -50,11 +46,24 @@ class OwnerDetails(APIView):
 
 
 
+class OwnerDetails(APIView):
+    model = Owner
+    serializer_class = OwnerSerializer
 
-def home(request):
-    return render(request, 'base.html')
+    def get(self, request, pk, format=None):
+        try:
+            owner = get_objects(Owner,'GET', request, pk)
+            serializer = OwnerSerializer(owner)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
+        except ObjectDoesNotExist:
+            return Response("there is no Owner with the id={}".format(pk), status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, pk):
+        owner = get_objects(Owner,'DELETE',request , pk)
+        owner.delete()
+        return Response('deleted', status=status.HTTP_200_OK)
 
+    
 
 
 
